@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/nodejs
+    steps:
+      - checkout
+      - run:
+          name: Install NPM dependencies
+          command: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}       
+      - run:
+          name: Run Unit Tests
+          command: npm run unit-tests
+      - run:
+          name: Run Integration Tests
+          command: npm run integration-tests        
+      - setup_remote_docker:
+          docker_layer_caching: true
