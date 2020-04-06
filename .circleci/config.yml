@@ -18,5 +18,3 @@ jobs:
       - run:
           name: Run Integration Tests
           command: npm run integration-tests        
-      - setup_remote_docker:
-          docker_layer_caching: true
